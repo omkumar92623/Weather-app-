@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
 @app.get("/get_lon_and_lat")
-def get_lon_lat(city_name:str,state_code:str,country_code:str,limit:int):
+def get_lon_lat(city_name:str,state_code:str,country_code:str,limit:int=2):
     URL = f"http://api.openweathermap.org/geo/1.0/direct?q={city_name},{state_code},{country_code}&limit={limit}&appid={API_KEY}"
     response = requests.get(URL)
     if response.status_code != 200:
@@ -28,7 +28,7 @@ def current_weather_data(lat:str,lon:str):
     if response.status_code != 200:
            raise HTTPException(
                status_code=404,
-               detail="lat log  not found for this location"
+               detail="weather not found for this location"
            )
        
     return response.json()
