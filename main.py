@@ -15,8 +15,8 @@ def get_lon_lat(city_name:str,state_code:str,country_code:str,limit:int=2):
     response = requests.get(URL)
     if response.status_code != 200:
         raise HTTPException(
-            status_code=404,
-            detail="lat log  not found for this location"
+            status_code=response.status_code,
+            detail=response.text
         )
     
     return response.json()
@@ -27,8 +27,8 @@ def current_weather_data(lat:str,lon:str):
     response = requests.get(URL)
     if response.status_code != 200:
            raise HTTPException(
-               status_code=404,
-               detail="weather not found for this location"
+               status_code=response.status_code,
+               detail=response.text
            )
        
     return response.json()
